@@ -16,3 +16,15 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/ping', ['middleware' => 'auth', function () {
+    return 'pong';
+}]);
+
+$router->post('register', 'AuthController@register');
+$router->post('login', 'AuthController@login');
+$router->post('refresh', 'AuthController@refresh');
+
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->post('logout', 'AuthController@logout');
+});
