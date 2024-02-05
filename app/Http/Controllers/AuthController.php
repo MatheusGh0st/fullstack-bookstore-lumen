@@ -6,7 +6,6 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -69,7 +68,6 @@ class AuthController extends Controller
                 'phone_number' => $request->phone_number,
                 'role' => $request->role,
                 'email' => $request->email,
-
             ]);
 
             $user->password = Hash::make($request->password);
@@ -105,9 +103,10 @@ class AuthController extends Controller
             }
 
             $user = User::query()->where('email', $request->email)->first();
-
             if ($user) {
+
                 if (Hash::check($request->password, $user->password)) {
+
                     $params = [
                         'grant_type' => 'password',
                         'client_id' => $this->client->id,
@@ -116,9 +115,13 @@ class AuthController extends Controller
                         'password' => $request->password,
                         'scope' => '*'
                     ];
+
                     $proxy = Request::create('oauth/token', 'POST', $params);
+
                     $oauth = app()->handle($proxy);
                     $data =  json_decode($oauth->getContent(), true);
+
+
 
                     return response()->json(['message' => $data], 200);
                 }

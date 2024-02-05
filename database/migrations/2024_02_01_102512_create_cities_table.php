@@ -18,7 +18,6 @@ class CreateCitiesTable extends Migration
             $table->id(); // This will create an auto-incrementing primary key column
             $table->string('city_name');
             $table->foreignId('country_id');
-            $table->timestamps();
         });
     }
 

@@ -21,10 +21,15 @@ $router->get('/ping', ['middleware' => 'auth', function () {
     return 'pong';
 }]);
 
-$router->post('register', 'AuthController@register');
-$router->post('login', 'AuthController@login');
-$router->post('refresh', 'AuthController@refresh');
+$router->post('/register', 'AuthController@register');
+$router->post('/login', 'AuthController@login');
+$router->post('/refresh', 'AuthController@refresh');
 
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
-    $router->post('logout', 'AuthController@logout');
+    $router->post('/logout', 'AuthController@logout');
+
+    $router->get('/city', 'CityController@index');
+    $router->post('/city', 'CityController@store');
+    $router->put('/city/{id}', 'CityController@update');
+    $router->delete('/city/{id}', 'CityController@destroy');
 });
