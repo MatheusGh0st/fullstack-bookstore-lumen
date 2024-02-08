@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->enum('status', ['Available', 'Not Available']);
             $table->integer('stock');
             $table->enum('genre', ['Action', 'Adventure', 'Classics', 'Comic Book', 'Graphic Novel', 'Detective', 'Mystery', 'Fantasy', 'Historical Fiction', 'Horror', 'Literary Fiction', 'Romance', 'Science Fiction', 'Suspense', 'Thrillers', 'Fiction']);
+            $table->timestamps();
         });
     }
 
