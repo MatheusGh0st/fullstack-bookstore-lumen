@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             BookSeeder::class,
             AuthorSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

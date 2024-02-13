@@ -28,23 +28,28 @@ $router->post('/refresh', 'AuthController@refresh');
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/logout', 'AuthController@logout');
 
-    $router->get('/city', 'CityController@index');
+    $router->get('/cities', 'CityController@index');
     $router->post('/city', 'CityController@store');
     $router->put('/city/{id}', 'CityController@update');
     $router->delete('/city/{id}', 'CityController@destroy');
 
-    $router->get('/country', 'CountryController@index');
+    $router->get('/countries', 'CountryController@index');
     $router->post('/country', 'CountryController@store');
     $router->put('/country/{id}', 'CountryController@update');
     $router->delete('/country/{id}', 'CountryController@destroy');
 
     $router->get('/books', 'BookController@index');
-    $router->post('/books', 'BookController@store');
-    $router->put('/books/{id}', 'BookController@update');
-    $router->delete('/books/{id}', 'BookController@destroy');
+    $router->post('/book', 'BookController@store');
+    $router->put('/book/{id}', 'BookController@update');
+    $router->delete('/book/{id}', 'BookController@destroy');
 
-    $router->get('/author', 'AuthorController@index');
+    $router->get('/authors', 'AuthorController@index');
     $router->post('/author', 'AuthorController@store');
     $router->put('/author/{id}', 'AuthorController@update');
     $router->delete('/author/{id}', 'AuthorController@destroy');
+
+    $router->get('/reviews', 'ReviewController@index');
+    $router->post('/review', 'ReviewController@store');
+    $router->put('/review/{id}', 'ReviewController@update');
+    $router->delete('/review/{id}', 'ReviewController@destroy');
 });
