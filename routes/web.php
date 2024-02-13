@@ -52,4 +52,9 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/review', 'ReviewController@store');
     $router->put('/review/{id}', 'ReviewController@update');
     $router->delete('/review/{id}', 'ReviewController@destroy');
+
+    $router->get('/languages', 'LanguageController@index');
+    $router->post('/language', 'LanguageController@store');
+    $router->put('/language/{id}', 'LanguageController@update');
+    $router->delete('/language/{id}', 'LanguageController@destroy');
 });
