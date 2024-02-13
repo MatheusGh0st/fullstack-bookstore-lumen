@@ -57,4 +57,9 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/language', 'LanguageController@store');
     $router->put('/language/{id}', 'LanguageController@update');
     $router->delete('/language/{id}', 'LanguageController@destroy');
+
+    $router->get('/carts', 'CartController@index');
+    $router->post('/cart', 'CartController@store');
+    $router->put('/cart/{id}', 'CartController@update');
+    $router->delete('/cart/{id}', 'CartController@destroy');
 });
