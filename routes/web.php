@@ -62,4 +62,9 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/cart', 'CartController@store');
     $router->put('/cart/{id}', 'CartController@update');
     $router->delete('/cart/{id}', 'CartController@destroy');
+
+    $router->get('/orders', 'OrderController@index');
+    $router->post('/order', 'OrderController@store');
+    $router->put('/order/{id}', 'OrderController@update');
+    $router->delete('/order/{id}', 'OrderController@destroy');
 });
