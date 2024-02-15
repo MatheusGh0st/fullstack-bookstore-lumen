@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Payment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             CartSeeder::class,
             OrderSeeder::class,
+            PaymentSeeder::class,
         ]);
     }
 }
