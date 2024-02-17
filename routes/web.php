@@ -24,6 +24,7 @@ $router->get('/ping', ['middleware' => 'auth', function () {
 $router->post('/register', 'AuthController@register');
 $router->post('/login', 'AuthController@login');
 $router->post('/refresh', 'AuthController@refresh');
+$router->get('/test/{id}', 'AuthController@test');
 
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/logout', 'AuthController@logout');

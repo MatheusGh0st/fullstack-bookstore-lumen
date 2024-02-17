@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Language;
+use App\Models\Order;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller;
 use Laravel\Passport\Client;
@@ -121,8 +124,6 @@ class AuthController extends Controller
 
                     $oauth = app()->handle($proxy);
                     $data =  json_decode($oauth->getContent(), true);
-
-
 
                     return response()->json(['message' => $data], 200);
                 }
