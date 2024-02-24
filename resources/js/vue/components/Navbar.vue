@@ -14,8 +14,8 @@
 
 <script>
 export default {
-    name: 'App',
-};
+    name: "Navbar"
+}
 </script>
 
 <style scoped>

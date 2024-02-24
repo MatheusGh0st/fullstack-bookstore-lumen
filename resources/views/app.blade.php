@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="app">
-    <navbar></navbar>
+    <App></App>
 </div>
 
 </body>
