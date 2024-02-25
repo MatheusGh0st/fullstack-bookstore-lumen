@@ -1,13 +1,12 @@
 <script>
-
 export default {
     name: 'App',
 };
 </script>
 
 <template>
-    <Navbar></Navbar>
-    <Register></Register>
+    <navbar></navbar>
+    <router-view></router-view>
 </template>
 
 <style scoped>

@@ -6,16 +6,17 @@
         <ul>
             <li> Books </li>
             <li> Cart </li>
-            <li> Login </li>
-            <li> Register </li>
+            <li><RouterLink to="/login">Login</RouterLink></li>
+            <li><RouterLink to="/register">Register</RouterLink></li>
         </ul>
     </nav>
 </template>
 
 <script>
+
 export default {
-    name: "Navbar"
-}
+    name: "Navbar",
+};
 </script>
 
 <style scoped>
