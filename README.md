@@ -9,9 +9,9 @@ This project was created to work with lumen and to develop skills in Lumen, PHP,
 
 ## Todo
 
-[x] Authentication Backend/Frontend.
-[X] Models (User, Book, Cart, Order, Payment, etc).
-[X] Controller for all models.
-[x] Relationship Entity between models.
-[ ] Vue components models
-[ ] Css on all components
+ - [x] Authentication Backend/Frontend.
+ - [X] Models (User, Book, Cart, Order, Payment, etc).
+ - [X] Controller for all models.
+ - [x] Relationship Entity between models.
+ - [ ] Vue components models
+ - [ ] Css on all components
