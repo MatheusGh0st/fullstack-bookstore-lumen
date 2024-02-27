@@ -5,6 +5,7 @@ import Register from './vue/components/Register.vue';
 import Login from './vue/components/Login.vue';
 import './index.css';
 import { createRouter, createWebHistory } from "vue-router";
+import store from "./vue/store/index";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -33,5 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     app.component('Navbar', Navbar);
     app.component('Register', Register);
     app.use(router);
+    app.use(store);
     app.mount('#app');
 });

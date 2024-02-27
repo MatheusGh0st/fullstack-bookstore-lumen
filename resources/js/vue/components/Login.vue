@@ -1,6 +1,4 @@
 <script>
-import axios from "axios";
-
 export default {
     data() {
         return {
@@ -11,12 +9,7 @@ export default {
     methods: {
         async loginUser() {
             try {
-                const response = await axios.post('http://localhost:5000/login', {
-                    email: this.email,
-                    password: this.password,
-                });
-
-                console.log(response.data);
+                await this.$store.dispatch('loginUser', { email: this.email, password: this.password });
             } catch (err)
             {
                 console.error(err);
