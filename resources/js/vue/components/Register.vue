@@ -72,7 +72,7 @@ export default {
                     password: this.password,
                 });
 
-                console.log(response.data);
+                this.$router.push('/login');
             } catch (err) {
                 console.error(err);
             }

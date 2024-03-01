@@ -3,6 +3,7 @@ import App from './vue/components/App.vue';
 import Navbar from './vue/components/Navbar.vue';
 import Register from './vue/components/Register.vue';
 import Login from './vue/components/Login.vue';
+import Home from './vue/components/Home.vue';
 import './index.css';
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./vue/store/index";
@@ -24,6 +25,11 @@ const router = createRouter({
             path: '/register',
             name: 'Register',
             component: Register
+        },
+        {
+            path: '/home',
+            name: 'Home',
+            component: Home
         }
     ]
 });

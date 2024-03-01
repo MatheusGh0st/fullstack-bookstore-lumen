@@ -10,6 +10,8 @@ export default {
         async loginUser() {
             try {
                 await this.$store.dispatch('loginUser', { email: this.email, password: this.password });
+
+                this.$router.push('/Home');
             } catch (err)
             {
                 console.error(err);
