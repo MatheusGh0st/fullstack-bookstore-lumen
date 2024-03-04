@@ -1,23 +1,34 @@
+<script>
+export default {
+    name: "Navbar",
+    computed: {
+        isLogged() {
+            return this.$store.state.isLogged;
+        }
+    },
+    data() {
+        return {
+            imgCartUrl: 'https://thecleverheart.com/wp-content/uploads/2023/10/SHOPPING-CART-light-grey-app-icon.png',
+        }
+    },
+}
+</script>
+
 <template>
     <nav>
         <div>
             <img />
         </div>
         <ul>
-            <li> Books </li>
-            <li> Cart </li>
-            <li><RouterLink to="/login">Login</RouterLink></li>
-            <li><RouterLink to="/register">Register</RouterLink></li>
+            <li><router-link to="/home">Home</router-link></li>
+            <li><router-link to="/cart"><img :src=imgCartUrl width="48" height="48" /></router-link></li>
+        </ul>
+        <ul v-show="!$store.state.isLogged">
+            <li><router-link to="/login">Login</router-link></li>
+            <li><router-link to="/register">Register</router-link></li>
         </ul>
     </nav>
 </template>
-
-<script>
-
-export default {
-    name: "Navbar",
-};
-</script>
 
 <style scoped>
 nav {
