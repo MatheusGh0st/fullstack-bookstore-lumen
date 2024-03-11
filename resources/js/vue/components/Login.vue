@@ -24,21 +24,63 @@ export default {
 <template>
     <section>
         <div class="login-container">
-            <form @submit.prevent="loginUser">
+            <span class="span-sign">Sign In.</span>
+            <form class="form-container" @submit.prevent="loginUser">
                 <div class="label-container">
-                    <label class="label-form">Email Address</label>
-                    <input class="input-label" v-model="email" name="email" placeholder="e.g. stephsmith@lorem.com" type="text"/>
+                    <input class="input-label" v-model="email" name="email" placeholder="E-mail" type="text"/>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Password</label>
-                    <input class="input-label" v-model="password" name= "password" placeholder= "Password"type= "password"/>
+                    <input class="input-label" v-model="password" name= "password" placeholder= "Password" type="password"/>
                 </div>
-                <button type= "submit">Submit</button>
+                <button type="submit">Sign In.</button>
+                <span class="span-account">doest have an account? <router-link to="/register">Create a account</router-link></span>
             </form>
         </div>
     </section>
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
+* {
+    font-family: 'Poppins', sans-serif;
+    background-color: #373737;
+    color: #FFFFFF;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    height: 90vh;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+.label-container {
+    padding: 5px 0px 20px 0px;
+}
+
+.input-label {
+    width: 295px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+button {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+}
 </style>
