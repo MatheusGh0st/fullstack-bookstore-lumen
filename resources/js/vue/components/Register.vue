@@ -1,21 +1,18 @@
 <template>
     <section>
         <div class="register-container">
-            <form @submit.prevent="storeRegister">
+            <span class="span-up">Sign Up.</span>
+            <form class="form-container" @submit.prevent="storeRegister">
                 <div class="label-container">
-                    <label class="label-form">First Name</label>
                     <input class="input-label" v-model="firstName" name="firstName" placeholder="Steph" type="text"/>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Last Name</label>
                     <input class="input-label" v-model="lastName" name="lastName" placeholder="Smith" type="text"/>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Address</label>
                     <input class="input-label" v-model="user_address" name="user_address" placeholder="Street 123" type="text"/>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Phone</label>
                     <input class="input-label" v-model="phone_number" name="phone_number" placeholder="19 999999" type="number"/>
                 </div>
                 <div class="label-container">
@@ -25,17 +22,15 @@
                     </select>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Email Address</label>
-                    <input class="input-label" v-model="email" name="email" placeholder="e.g. stephsmith@lorem.com" type="text"/>
-                </div>
-                <div class="label-container">
                     <label class="label-form">City ID</label>
                 </div>
                 <div class="label-container">
-                    <label class="label-form">Password</label>
+                    <input class="input-label" v-model="email" name="email" placeholder="E-mail" type="text"/>
+                </div>
+                <div class="label-container">
                     <input class="input-label" v-model="password" name= "password" placeholder= "Password"type= "password"/>
                 </div>
-                <button type= "submit">Submit</button>
+                <button type= "submit">Sign Up.</button>
             </form>
         </div>
     </section>
@@ -82,5 +77,72 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
+* {
+    font-family: 'Poppins', sans-serif;
+    background-color: #373737;
+    color: #FFFFFF;
+}
+
+.span-up {
+    display: flex;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    height: 90vh;
+    padding-bottom: 10px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.label-container {
+    padding: 5px 0px 10px 0px;
+}
+
+.label-container > label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-label {
+    width: 295px;
+    height: 40px;
+    background-color: #4b4b4b;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+button {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #B6B6B6;
+    color: #EAEAEA;
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid #C4D1EB;
+    box-shadow: -1px 3px 2px 0px #E2E2E2;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #d3cdcd;
+}
 </style>
