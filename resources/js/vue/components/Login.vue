@@ -48,6 +48,33 @@ export default {
     color: #FFFFFF;
 }
 
+.span-account {
+    padding-top: 30px;
+}
+
+button {
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #B6B6B6;
+    color: #EAEAEA;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #C4D1EB;
+    box-shadow: -1px 3px 2px 0px #E2E2E2;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #d3cdcd;
+}
+
+.span-sign {
+    font-weight: bold;
+    font-size: 40px;
+    padding-top: 60px;
+}
+
 .login-container {
     display: flex;
     flex-direction: column;
@@ -65,8 +92,8 @@ export default {
     justify-content: center;
     align-items: center;
     align-content: center;
+    padding-bottom: 30px;
 }
-
 
 .label-container {
     padding: 5px 0px 20px 0px;
@@ -75,12 +102,8 @@ export default {
 .input-label {
     width: 295px;
     height: 40px;
+    background-color: #4b4b4b;
     border-radius: 5px;
-}
-
-button {
-    width: 300px;
-    height: 40px;
-    border-radius: 5px;
+    padding-left: 10px;
 }
 </style>
