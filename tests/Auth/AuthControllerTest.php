@@ -12,7 +12,7 @@ class AuthControllerTest extends TestCase
     {
         // Arrange
         $userData = User::factory()->raw([
-            'firstName' => "TestUser",
+            'firstName' => 'TestUser',
             'lastName' => "LastUser",
             'email' => "testuser@gmail.com",
             'city_id' => "1",
