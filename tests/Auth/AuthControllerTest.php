@@ -3,6 +3,7 @@
 namespace Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use TestCase;
 
 class AuthControllerTest extends TestCase
@@ -11,14 +12,14 @@ class AuthControllerTest extends TestCase
     {
         // Arrange
         $userData = User::factory()->raw([
-            'firstName' => 'TestUser',
-            'lastName' => 'LastUser',
-            'email' => 'testuser@gmail.com',
-            'city_id' => '1',
+            'firstName' => "TestUser",
+            'lastName' => "LastUser",
+            'email' => "testuser@gmail.com",
+            'city_id' => "1",
             'user_address' => "Hansen Thr Kev",
-            'phone_number' => '2455-3223535-3',
+            'phone_number' => "2455-3223535-3",
             'role' => "Illustrator",
-            'password' => 'secret123'
+            'password' => "secret123"
         ]);
 
         // Act
@@ -26,5 +27,25 @@ class AuthControllerTest extends TestCase
 
         // Assert
         $response->assertResponseStatus(201);
+    }
+
+    public function testUserLoginSuccess() {
+
+        // Arrange
+        $user = User::factory()->create([
+            'email' => 'testuser@gmail.com',
+            'password' => Hash::make('secret123'),
+        ]);
+
+        $loginData = [
+            "email" => $user->email,
+            "password" => "secret123"
+        ];
+
+        // Act
+        $response = $this->post('/login', $loginData);
+
+        // Assert
+        $response->assertResponseStatus(200);
     }
 }
