@@ -13,6 +13,7 @@ class CityFactory extends Factory
     {
         return [
             'city_name' => $this->faker->city,
+            'country_id' => $this->faker->randomNumber(1)
         ];
     }
 }
