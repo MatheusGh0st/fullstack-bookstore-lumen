@@ -18,6 +18,21 @@ class BookControllerTest extends TestCase
             ]);
 
             $response->assertResponseStatus(200);
+            $response->seeJsonStructure([
+                '*' => [
+                    'book_id',
+                    'title',
+                    'books_language_foreign',
+                    'publication_date',
+                    'author_id',
+                    'price',
+                    'image',
+                    'edition',
+                    'status',
+                    'stock',
+                    'genre',
+                ]
+            ]);
         } catch (Exception $e) {
             $e->getMessage();
         }
@@ -65,6 +80,7 @@ class BookControllerTest extends TestCase
             ]);
 
             $response->assertResponseStatus(200);
+            $this->seeInDatabase('books', $book->toArray());
         } catch (Exception $e) {
             $e->getMessage();
         }
