@@ -18,7 +18,7 @@ class BookFactory extends Factory
             'Romance', 'Science Fiction', 'Suspense', 'Thrillers', 'Fiction'];
 
     	return [
-            'title' => $this->faker->title,
+            'title' => $this->faker->sentence(),
             'books_language_foreign' => $this->faker->randomDigit(),
             'publication_date' => $this->faker->date,
             'author_id' => $this->faker->randomDigit(),
