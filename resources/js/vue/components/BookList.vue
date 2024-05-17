@@ -14,16 +14,12 @@ export default {
 </template>
 
 <style scoped>
- .book-container {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     grid-template-rows: repeat(3, 1fr);
-     grid-column-gap: 5px;
-     grid-row-gap: 5px;
-     padding: 10px 10px;
-     align-items: center;
-     justify-content: center;
-     align-content: center;
-     justify-items: center;
- }
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 100px;
+    place-items: center;
+}
 </style>
