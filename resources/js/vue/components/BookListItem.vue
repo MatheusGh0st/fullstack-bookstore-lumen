@@ -1,56 +1,75 @@
 <script>
 import axios from 'axios';
-export default {
-    name: "BookListItem",
-    data() {
-      return {
-          imageUrl: 'https://www.boldstrokesbooks.com/assets/bsb/images/book-default-cover.jpg',
-          imgCartUrl: '/images/cart-default.jpeg',
-        books: [],
-          authors: [],
-      };
-    },
-    mounted() {
-        this.getBooks();
-        this.getAuthors();
-    },
-    methods: {
-        async getBooks() {
-            try {
-                const response = await  axios.get('http://localhost:5000/books', { headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.accessToken
-                    }});
-                this.books = response.data;
-            } catch (err)
-            {
-                console.error(err);
-            }
-        },
+import { ref } from 'vue';
+import { useStore } from 'vuex';
 
-        async getAuthors() {
-            try {
-                const response = await axios.get('http://localhost:5000/authors', { headers: {
-                    'Authorization': 'Bearer ' + this.$store.state.accessToken
-                    }});
-                this.authors = response.data;
-            } catch (err) {
-                console.error(err);
-            }
-        }
+export default {
+  name: "BookListItem",
+  props: {
+    page: { type: String, required: false },
+    paramsPage: { type: String, required: false },
+  },
+  data() {
+    return {
+      imageUrl: 'https://www.boldstrokesbooks.com/assets/bsb/images/book-default-cover.jpg',
+      imgCartUrl: '/images/cart-default.jpeg',
+    };
+  },
+  setup() {
+    const store = useStore();
+    const books = ref([]);
+
+    const getBooks = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/books', {
+          headers: {
+            'Authorization': 'Bearer ' + store.state.accessToken,
+          }
+        });
+        books.value = response.data;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const getBooksByGenre = async (genre) => {
+      try {
+        const response = await axios.get(`http://localhost:5000/books/${genre}`, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state.accessToken,
+          }
+        });
+        books.value = response.data.data;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    return {
+      books,
+      getBooks,
+      getBooksByGenre,
+    };
+  },
+  mounted() {
+    this.books.value = [];
+    if (this.page === 'Books' && this.paramsPage) {
+      this.getBooksByGenre(this.paramsPage);
+    } else {
+      this.getBooks();
     }
-}
+  }
+};
 </script>
 
 <template>
     <li class="book-box" v-for="book in books" :key="book.id">
         <div class="book-item-container">
-
             <div class="book-image">
                 <img class="img-book" :src=imageUrl width="160" height="255" />
             </div>
             <div class="text-information">
                 <div class="book-title"><router-link :to="`/book/${book.book_id}`">{{ book.title }}</router-link></div>
-                <!--            <div class="book-author">{{ book.author }}</div>-->
                 <!--            <div class="book-genre">{{ book.genre }}</div>-->
                 <!--            <div class="book-status">{{ book.status }}</div>-->
                 <!--            <div class="book-stock">{{ book.stock }}</div>-->

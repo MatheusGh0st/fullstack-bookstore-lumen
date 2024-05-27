@@ -3,13 +3,19 @@ import BookListItem from "./BookListItem.vue";
 
 export default {
     name: "Book",
-    components: {BookListItem}
+    components: {BookListItem},
+    data() {
+        return {
+            currentPage: this.$route.name,
+            parameters: this.$route.params.genre,
+        }
+    }
 }
 </script>
 
 <template>
     <div class="book-container">
-        <BookListItem></BookListItem>
+        <BookListItem :page="currentPage" :paramsPage="parameters"></BookListItem>
     </div>
 </template>
 
@@ -21,5 +27,7 @@ export default {
     grid-column-gap: 5px;
     grid-row-gap: 100px;
     place-items: center;
+    background-color: #242121;
+    padding-top: 80px;
 }
 </style>

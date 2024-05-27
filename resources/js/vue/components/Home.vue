@@ -19,7 +19,7 @@ export default {
     <div class="home-container">
         <div class="genres-container">
             <ul class="list-genres" v-for="genre in genres">
-                <li><router-link :to="`/genre/${genre}`">{{ genre }}</router-link></li>
+                <li><router-link :to="`/books/${genre.toLowerCase()}`">{{ genre }}</router-link></li>
             </ul>
         </div>
         <div class="content-container">

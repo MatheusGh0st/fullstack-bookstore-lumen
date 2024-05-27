@@ -6,6 +6,7 @@ import Home from './vue/components/Home.vue';
 import './index.css';
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./vue/store/index";
+import BookList from './vue/components/BookList.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -36,6 +37,13 @@ const router = createRouter({
                 main: Home
             }
         },
+        {
+            path: '/books/:genre',
+            name: 'Books',
+            components: {
+                main: BookList
+            }
+        }
     ]
 });
 
