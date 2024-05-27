@@ -46,7 +46,7 @@ export default {
 }
 
 .book-slider {
-    padding: 20px 0px 50px 100px;
+    padding: 20px 0px 60px 0px;
 }
 
 .genres-container {
@@ -73,7 +73,6 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: stretch;
-    align-content: stretch;
+    align-content: center;
 }
 </style>

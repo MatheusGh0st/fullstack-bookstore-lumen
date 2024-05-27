@@ -44,11 +44,12 @@ export default {
 <template>
     <li class="book-box" v-for="book in books" :key="book.id">
         <div class="book-item-container">
+
             <div class="book-image">
-                <img :src=imageUrl width="160" height="255" />
+                <img class="img-book" :src=imageUrl width="160" height="255" />
             </div>
             <div class="text-information">
-                <div class="book-title">{{ book.title }}</div>
+                <div class="book-title"><router-link :to="`/book/${book.book_id}`">{{ book.title }}</router-link></div>
                 <!--            <div class="book-author">{{ book.author }}</div>-->
                 <!--            <div class="book-genre">{{ book.genre }}</div>-->
                 <!--            <div class="book-status">{{ book.status }}</div>-->
@@ -58,7 +59,7 @@ export default {
                 <div class="price-cart-container">
                     <div class="book-price">${{ book.price }}</div>
                     <div class="book-cart">
-                        <li><router-link to="/cart"><img :src=imgCartUrl width="32" height="32" /></router-link></li>
+                        <li><router-link to="/cart"><img class="img-cart" :src=imgCartUrl width="32" height="32" /></router-link></li>
                     </div>
                 </div>
             </div>
@@ -68,11 +69,30 @@ export default {
 </template>
 
 <style scoped>
+.img-book {
+    border-radius: 5%;
+}
+
+.book-title > a {
+    text-decoration: none;
+    color: #F38851
+}
+
+.book-title > a:hover {
+    cursor: pointer;
+    color: #F39971;
+}
+
 .book-item-container {
     display: flex;
     flex-direction: column;
     width: 160px;
-    height: 530px;
+    justify-content: space-between;
+}
+
+.book-item-container:nth-child(2) {
+    display: block;
+    flex-grow: 1;
 }
 
 .button-read-now {
@@ -92,6 +112,11 @@ export default {
 .book-title {
     text-overflow: ellipsis;
     overflow: hidden;
+    max-height: 3.6em;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: .1.5rem;
 }
 
 .book-price {
@@ -115,6 +140,15 @@ export default {
     border: 1px solid black;
 }
 
+.book-cart:hover {
+    cursor: pointer;
+    background-color: #ec513a;
+}
+
+.img-cart {
+    margin-right: 2px;
+}
+
 .price-cart-container {
     display: flex;
     flex-direction: row;
@@ -129,7 +163,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     width: 160px;
-    height: 150px;
+    height: 120px;
 }
 
 li {
