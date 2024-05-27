@@ -41,6 +41,7 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->delete('/country/{id}', 'CountryController@destroy');
 
     $router->get('/books', 'BookController@index');
+    $router->get('/books/{genre}', 'BookController@getBookByGenre');
     $router->post('/book', 'BookController@store');
     $router->put('/book/{id}', 'BookController@update');
     $router->delete('/book/{id}', 'BookController@destroy');

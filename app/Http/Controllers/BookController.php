@@ -71,6 +71,25 @@ class BookController extends Controller
         }
     }
 
+    public function getBookByGenre(Request $request, $genre): JsonResponse
+    {
+        try {
+            $genreFinal = $genre;
+            if (str_contains($genre, "%20")) {
+                $genreAux = explode("%20", $genre);
+                $genreFinal = $genreAux[0] . " " . $genreAux[1];
+            }
+            $bookByGenre = Book::where('genre', '=', "$genreFinal")->get();
+
+            if ($bookByGenre)
+            {
+                return response()->json(['message' => 'Books genre find successfully', 'data' => $bookByGenre]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
     public function destroy(Request $request, $id): JsonResponse
     {
         try {
