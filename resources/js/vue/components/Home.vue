@@ -19,7 +19,7 @@ export default {
     <div class="home-container">
         <div class="genres-container">
             <ul class="list-genres" v-for="genre in genres">
-                <li>{{ genre }}</li>
+                <li><router-link :to="`/genre/${genre}`">{{ genre }}</router-link></li>
             </ul>
         </div>
         <div class="content-container">
@@ -33,6 +33,10 @@ export default {
 * {
     color: #FFFFFF;
     font-family: 'Ubuntu';
+}
+
+li > a {
+   text-decoration: none;
 }
 
 .home-container {
