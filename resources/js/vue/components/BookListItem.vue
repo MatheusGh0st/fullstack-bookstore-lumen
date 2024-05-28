@@ -70,12 +70,7 @@ export default {
             </div>
             <div class="text-information">
                 <div class="book-title"><router-link :to="`/book/${book.book_id}`">{{ book.title }}</router-link></div>
-                <!--            <div class="book-genre">{{ book.genre }}</div>-->
-                <!--            <div class="book-status">{{ book.status }}</div>-->
-                <!--            <div class="book-stock">{{ book.stock }}</div>-->
-                <!--            <div class="book-edition">{{ book.edition }}</div>-->
-                <!--            <div class="book-date">{{ book.publication_date }}</div>-->
-                <div class="price-cart-container">
+                             <div class="price-cart-container">
                     <div class="book-price">${{ book.price }}</div>
                     <div class="book-cart">
                         <li><router-link to="/cart"><img class="img-cart" :src=imgCartUrl width="32" height="32" /></router-link></li>

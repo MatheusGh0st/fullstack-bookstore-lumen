@@ -7,6 +7,7 @@ import './index.css';
 import { createRouter, createWebHistory } from "vue-router";
 import store from "./vue/store/index";
 import BookList from './vue/components/BookList.vue';
+import BookDetails from './vue/components/BookDetails.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -35,6 +36,13 @@ const router = createRouter({
             name: 'Home',
             components: {
                 main: Home
+            }
+        },
+        {
+            path: '/book/:id',
+            name: 'BookDetails',
+            components: {
+                main: BookDetails
             }
         },
         {

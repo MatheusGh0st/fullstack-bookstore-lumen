@@ -7,7 +7,7 @@ export default {
     data() {
         return {
             currentPage: this.$route.name,
-            parameters: this.$route.params.genre,
+    parameters: this.$route.params.genre,
         }
     }
 }
