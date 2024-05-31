@@ -14,6 +14,19 @@ class BookController extends Controller
         return Book::all();
     }
 
+    public function getBookById(Request $request, $id): JsonResponse
+    {
+        try {
+            $book = Book::query()->findOrFail($id);
+
+            if ($book) {
+                return response()->json(['data' => $book]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage]);
+        }
+    }
+
     public function store(Request $request): JsonResponse
     {
         try {
