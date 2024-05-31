@@ -16,6 +16,20 @@ class AuthorController extends Controller
         return Author::all();
     }
 
+    public function getAuthorById(Request $request, $id)
+    {
+        try {
+            $author = Author::query()->findOrFail($id);
+
+            if (!$author) {
+                return response()->json(['message' => 'Not found Author with this Id']);
+            }
+            return response()->json(['message' => 'Author finds successfully', 'data' => $author]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
     public function store(Request $request): JsonResponse
     {
         try {

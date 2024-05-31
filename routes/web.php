@@ -48,6 +48,7 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->delete('/book/{id}', 'BookController@destroy');
 
     $router->get('/authors', 'AuthorController@index');
+    $router->get('/author/{id}', 'AuthorController@getAuthorById');
     $router->post('/author', 'AuthorController@store');
     $router->put('/author/{id}', 'AuthorController@update');
     $router->delete('/author/{id}', 'AuthorController@destroy');
