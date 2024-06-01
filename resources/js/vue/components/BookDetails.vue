@@ -44,7 +44,6 @@ export default {
             }
         }
 
-
         return {
             book,
             author,
@@ -52,9 +51,16 @@ export default {
             getAuthorById,
         }
     },
+    computed: {
+        async fetchedBook() {
+            await this.getBookById(this.parameters);
+            return this.book;
+        }
+    },
 
-    mounted() {
-        this.getBookById(this.parameters);
+    async mounted() {
+        const bookDetails = await this.fetchedBook;
+        this.getAuthorById(bookDetails.author_id);
     }
 }
 </script>
@@ -68,9 +74,11 @@ export default {
             <div class="information-up">
                 <div class="book-title">Title: {{ book.title }}</div>
                 <div class="book-date">Publication Date: {{ book.publication_date }}</div>
+                <div class="book-author">Author: {{ author.author_name }}</div>
             </div>
             <hr>
             <div class="information-down">
+                <div class="author-description">Description: {{ author.description }}</div>
                 <div class="book-genre">Genre: {{ book.genre }}</div>
                 <div class="book-edition">Edition: {{ book.edition }}</div>
             </div>
@@ -86,7 +94,7 @@ export default {
 
 <style scoped>
 hr {
-    width: 400px;
+    width: 600px;
 }
 
 .img-book {
@@ -103,6 +111,7 @@ hr {
     color: #F38851;
     height: 100vh;
     background-color: #242121;
+    gap: 10px;
 }
 
 .book-image {
@@ -123,8 +132,13 @@ hr {
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
+    gap: 10px;
     height: 415px;
     width: 600px;
+}
+
+.information-up {
+    gap: 10px;
 }
 
 .purchase-last-step {
