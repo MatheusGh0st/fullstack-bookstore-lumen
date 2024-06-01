@@ -111,11 +111,6 @@ hr {
     color: #F38851;
     height: 100vh;
     background-color: #242121;
-    gap: 10px;
-}
-
-.book-image {
-    border: 1px solid black;
 }
 
 .book-price {
@@ -132,7 +127,7 @@ hr {
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 10px;
+    margin: 10px 0px;
     height: 415px;
     width: 600px;
 }
