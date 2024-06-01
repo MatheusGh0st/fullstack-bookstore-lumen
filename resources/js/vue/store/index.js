@@ -4,6 +4,7 @@ import axios from 'axios';
 const defaultState = {
     accessToken: null,
     isLogged: null,
+    userId: null,
 }
 
 const store = createStore({
@@ -22,6 +23,9 @@ const store = createStore({
         },
         resetState(state) {
             Object.assign(state, defaultState);
+        },
+        setUserId(state, userId) {
+            state.userId = userId;
         }
     },
     actions: {
@@ -31,8 +35,10 @@ const store = createStore({
                     email, password
                 });
                 const { access_token } = response.data.message;
+                const { userId } = response.data.message;
 
                 commit('setAccessToken', access_token);
+                commit('setUserId', userId);
                 const userIsLogged = (access_token !== null);
                 commit('setIsLogged', userIsLogged);
             } catch (error) {

@@ -123,7 +123,8 @@ class AuthController extends Controller
                     $proxy = Request::create('oauth/token', 'POST', $params);
 
                     $oauth = app()->handle($proxy);
-                    $data =  json_decode($oauth->getContent(), true);
+                    $data = json_decode($oauth->getContent(), true);
+                    $data['user_id'] = $user->id;
 
                     return response()->json(['message' => $data], 200);
                 }
