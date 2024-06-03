@@ -8,6 +8,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import store from "./vue/store/index";
 import BookList from './vue/components/BookList.vue';
 import BookDetails from './vue/components/BookDetails.vue';
+import CartItem from './vue/components/CartItem.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -50,6 +51,13 @@ const router = createRouter({
             name: 'Books',
             components: {
                 main: BookList
+            }
+        },
+        {
+            path: '/cart',
+            name: 'CartItem',
+            components: {
+                main: CartItem
             }
         }
     ]

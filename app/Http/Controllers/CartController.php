@@ -16,6 +16,20 @@ class CartController extends Controller
         return Cart::all();
     }
 
+    public function getCartsById(Request $request, $id) {
+        try {
+            $carts = Cart::query()->where('user_id', '=', $id)->get();
+
+            if (!$carts) {
+                return response()->json(['message' => 'Not found carts associate with this userId']);
+            }
+
+            return response()->json(['message' => 'Cart finds successfully', 'data' => $carts]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
     public function store(Request $request): JsonResponse
     {
         try {

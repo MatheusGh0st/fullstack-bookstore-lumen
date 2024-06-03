@@ -35,10 +35,10 @@ const store = createStore({
                     email, password
                 });
                 const { access_token } = response.data.message;
-                const { userId } = response.data.message;
+                const { user_id } = response.data.message;
 
                 commit('setAccessToken', access_token);
-                commit('setUserId', userId);
+                commit('setUserId', user_id);
                 const userIsLogged = (access_token !== null);
                 commit('setIsLogged', userIsLogged);
             } catch (error) {
