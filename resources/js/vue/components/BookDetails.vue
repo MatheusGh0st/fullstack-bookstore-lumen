@@ -44,11 +44,33 @@ export default {
             }
         }
 
+        const postBookToCart = async () => {
+            try {
+                const response = await axios.post(`http://localhost:5000/cart`,
+                    {
+                        user_id: store.state.userId,
+                            book_id: book.value.book_id,
+                            discount: 0.0,
+                            total_books: 1,
+                            total_price: 1222,
+                    }, {
+                        headers: {
+                            'Authorization': 'Bearer ' + store.state.accessToken,
+                        },
+                    });
+                console.log(response);
+            } catch (error) {
+                console.error('Error adding book to cart:', error);
+                throw error;
+            }
+        };
+
         return {
             book,
             author,
             getBookById,
             getAuthorById,
+            postBookToCart,
         }
     },
     computed: {
@@ -87,7 +109,7 @@ export default {
             <div class="book-status">Status: {{ book.status }}</div>
             <div class="book-stock">In stock: {{ book.stock }}</div>
             <div class="book-price">Price: {{ book.price }}</div>
-            <div class="book-cart"><router-link to="/cart">Add to Cart</router-link></div>
+            <div class="book-cart"><router-link to="/cart" @click=postBookToCart>Add to Cart</router-link></div>
         </div>
     </div>
 </template>

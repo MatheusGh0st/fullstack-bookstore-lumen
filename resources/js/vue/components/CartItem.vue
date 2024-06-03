@@ -17,15 +17,15 @@ export default {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
                 });
-                carts.value = response.data?.data;
-                console.log(response.data);
+                carts.value = response.data.data;
             } catch (err) {
                 console.error(err);
             }
         }
 
         return {
-            getUserCarts
+            carts,
+            getUserCarts,
         }
     },
     mounted() {
@@ -35,17 +35,16 @@ export default {
 </script>
 
 <template>
-    <div class="cart-container">
-        <li v-for="cart in carts" :key="cart.id">
-            <div class="cart-item-container">
-                <div>
-                    {{ cart.total_books }}
-                </div>
-            </div>
-        </li>
-    </div>
+    <li class="cart-box" v-for="cart in carts" :key="cart_id">
+        <div class="cart-item-container">
+            <div>Total Books: {{ cart.total_books }}</div>
+            <div>Discount: {{ cart.discount }}</div>
+        </div>
+    </li>
 </template>
 
 <style scoped>
-
+.cart-box {
+    background-color: #242121;
+}
 </style>
