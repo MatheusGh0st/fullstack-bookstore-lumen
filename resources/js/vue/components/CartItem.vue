@@ -43,12 +43,28 @@ export default {
             }
         }
 
+        const removeBookFromCartById = async (id) => {
+            try {
+                const response = await axios.delete(`http://localhost:5000/cart/${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken
+                    }
+                });
+                const cardId = carts.value.filter(cart => cart.cart_id === id);
+                const bookCartId = cardId[0].book_id;
+                books.value = books.value.filter(book => book.book_id !== bookCartId);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         return {
             carts,
             books,
             total_price,
             getBookById,
             getUserCarts,
+            removeBookFromCartById
         }
     },
     computed: {
@@ -69,7 +85,7 @@ export default {
             this.books.forEach(book => {
                 this.total_price += book.price;
             });
-        }
+        },
     }
 }
 </script>
@@ -77,20 +93,26 @@ export default {
 <template>
     <div class="cart-item-container">
         <div class="cart-container">
-            <li class="book-product-container" v-for="book in books">
-                <!--
+            <li class="book-product-container" v-for="(book, i) in books">
                 <div class=book-img> <img :src=imageUrl width=60 height=80 /> </div>
-                -->
 
-                <div> {{ book.title }} </div>
-                <div> {{ book.stock }} </div>
-                <div> {{ book.status }} </div>
-                <div> {{ book.genre }} </div>
-                <div> {{ book.edition }} </div>
-                <div> {{ book.price }} </div>
+                <div class="information-up">
+                    <div> {{ book.title }} </div>
+                    <div>Genre: {{ book.genre }} </div>
+                    <div>Status: {{ book.status }} </div>
+                </div>
+
+                <div class="information-down">
+                    <div>In Stock: {{ book.stock }} </div>
+                    <div>Edition: {{ book.edition }} </div>
+                    <div>$ {{ book.price }} </div>
+                </div>
+
+                <div class="remove-cart">
+                    <div @click="removeBookFromCartById(carts[i].cart_id)" :key="carts[i].cart_id">Remove {{ carts[i].cart_id }}</div>
+                </div>
             </li>
-            <hr>
-            <div>Total: {{ total_price.toFixed(2) }}</div>
+            <div class="cart-price">Total: {{ total_price.toFixed(2) }}</div>
         </div>
     </div>
 </template>
@@ -103,16 +125,42 @@ export default {
     justify-content: center;
     align-items: center;
     align-content: center;
-    height: 300vh;
+    height: 100vh;
     background-color: #242121;
 }
 
+.remove-cart:hover {
+    cursor: pointer;
+}
+
+.cart-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.information-up {
+    padding: 5px 10px;
+    width: 350px;
+}
+
+.information-down {
+    padding: 5px 10px;
+    width: 120px;
+}
+
 .cart-container {
+    width: 700px;
     border: 1px solid black;
 }
 
 .book-product-container {
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
     border: 1px solid black;
 }
 
