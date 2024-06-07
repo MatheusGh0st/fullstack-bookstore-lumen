@@ -16,6 +16,13 @@ export default {
         const books = ref({});
         const total_price = ref(0.0);
 
+        const calculateTotal = () => {
+            total_price.value = 0;
+            books.value.map(book => {
+                total_price.value += book.price;
+            });
+        };
+
         const getUserCarts = async () => {
             const userId = store.state.userId;
             try {
@@ -53,6 +60,8 @@ export default {
                 const cardId = carts.value.filter(cart => cart.cart_id === id);
                 const bookCartId = cardId[0].book_id;
                 books.value = books.value.filter(book => book.book_id !== bookCartId);
+                carts.value = carts.value.filter(cart => cart.cart_id !== id);
+                calculateTotal();
             } catch (err) {
                 console.error(err);
             }
@@ -64,7 +73,8 @@ export default {
             total_price,
             getBookById,
             getUserCarts,
-            removeBookFromCartById
+            removeBookFromCartById,
+            calculateTotal
         }
     },
     computed: {
@@ -78,14 +88,6 @@ export default {
         const cartsDetails = await this.fetchedCarts;
         this.books = await Promise.all(cartsDetails.map(cartDetail => this.getBookById(cartDetail.book_id)));
         this.calculateTotal();
-    },
-    methods: {
-        calculateTotal() {
-            this.total_price = 0;
-            this.books.forEach(book => {
-                this.total_price += book.price;
-            });
-        },
     }
 }
 </script>

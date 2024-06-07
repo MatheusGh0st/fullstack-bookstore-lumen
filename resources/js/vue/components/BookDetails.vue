@@ -58,7 +58,6 @@ export default {
                             'Authorization': 'Bearer ' + store.state.accessToken,
                         },
                     });
-                console.log(response);
             } catch (error) {
                 console.error('Error adding book to cart:', error);
                 throw error;
