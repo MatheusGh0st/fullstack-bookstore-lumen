@@ -1,65 +1,86 @@
 <script>
-import axios from 'axios';
-import { ref } from 'vue';
-import { useStore } from 'vuex';
+    import axios from 'axios';
+    import { ref } from 'vue';
+    import { useStore } from 'vuex';
 
-export default {
-  name: "BookListItem",
-  props: {
-    page: { type: String, required: false },
-    paramsPage: { type: String, required: false },
-  },
-  data() {
-    return {
-      imageUrl: 'https://www.boldstrokesbooks.com/assets/bsb/images/book-default-cover.jpg',
-      imgCartUrl: '/images/cart-default.jpeg',
-    };
-  },
-  setup() {
-    const store = useStore();
-    const books = ref([]);
+    export default {
+        name: "BookListItem",
+        props: {
+            page: { type: String, required: false },
+            paramsPage: { type: String, required: false },
+        },
+        data() {
+            return {
+                imageUrl: 'https://www.boldstrokesbooks.com/assets/bsb/images/book-default-cover.jpg',
+                imgCartUrl: '/images/cart-default.jpeg',
+            };
+        },
+        setup() {
+            const store = useStore();
+            const books = ref([]);
 
-    const getBooks = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/books', {
-          headers: {
-            'Authorization': 'Bearer ' + store.state.accessToken,
-          }
-        });
-        books.value = response.data;
-      } catch (err) {
-        console.error(err);
-      }
-    };
+            const getBooks = async () => {
+                try {
+                    const response = await axios.get('http://localhost:5000/books', {
+                        headers: {
+                            'Authorization': 'Bearer ' + store.state.accessToken,
+                        }
+                    });
+                    books.value = response.data;
+                } catch (err) {
+                    console.error(err);
+                }
+            };
 
-    const getBooksByGenre = async (genre) => {
-      try {
-        const response = await axios.get(`http://localhost:5000/books/${genre}`, {
-          headers: {
-            'Authorization': 'Bearer ' + store.state.accessToken,
-          }
-        });
-        books.value = response.data.data;
-      } catch (err) {
-        console.error(err);
-      }
-    };
+            const getBooksByGenre = async (genre) => {
+                try {
+                    const response = await axios.get(`http://localhost:5000/books/${genre}`, {
+                        headers: {
+                            'Authorization': 'Bearer ' + store.state.accessToken,
+                        }
+                    });
+                    books.value = response.data.data;
+                } catch (err) {
+                    console.error(err);
+                }
+            };
 
-    return {
-      books,
-      getBooks,
-      getBooksByGenre,
+            const postBookToCart = async (bookId) => {
+                try {
+                    const response = await axios.post(`http://localhost:5000/cart`,
+                        {
+                            user_id: store.state.userId,
+                            book_id: bookId,
+                            discount: 0.0,
+                            total_books: 1,
+                            total_price: 544,
+                        }, {
+                            headers: {
+                                'Authorization': 'Bearer ' + store.state.accessToken,
+                            },
+                        });
+                } catch (error) {
+                    console.error('Error adding book to cart:', error);
+                    throw error;
+                }
+            };
+
+            return {
+                books,
+                getBooks,
+                getBooksByGenre,
+                postBookToCart,
+            };
+        },
+        mounted() {
+            this.books.value = [];
+            if (this.page === 'Books' && this.paramsPage) {
+                this.getBooksByGenre(this.paramsPage);
+            } else {
+                this.getBooks();
+            }
+        }
     };
-  },
-  mounted() {
-    this.books.value = [];
-    if (this.page === 'Books' && this.paramsPage) {
-      this.getBooksByGenre(this.paramsPage);
-    } else {
-      this.getBooks();
-    }
-  }
-};
 </script>
 
 <template>
@@ -70,10 +91,10 @@ export default {
             </div>
             <div class="text-information">
                 <div class="book-title"><router-link :to="`/book/${book.book_id}`">{{ book.title }}</router-link></div>
-                             <div class="price-cart-container">
+                <div class="price-cart-container">
                     <div class="book-price">${{ book.price }}</div>
                     <div class="book-cart">
-                        <li><router-link to="/cart"><img class="img-cart" :src=imgCartUrl width="32" height="32" /></router-link></li>
+                        <li><router-link to="/cart" @click=postBookToCart(book.book_id)><img class="img-cart" :src=imgCartUrl width="32" height="32" /></router-link></li>
                     </div>
                 </div>
             </div>
