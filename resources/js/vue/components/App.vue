@@ -1,17 +1,22 @@
 <script>
 
 import Navbar from "./Navbar.vue";
+import Footer from "./Footer.vue";
 
 export default {
     name: 'App',
-    components: {Navbar},
+    components: {Navbar, Footer},
 };
 </script>
 
 <template>
     <Navbar></Navbar>
-    <router-view name="main"></router-view>
+    <router-view class="main-content-container" name="main"></router-view>
+    <Footer></Footer>
 </template>
 
 <style scoped>
+.main-content-container {
+    padding-bottom: 50px;
+}
 </style>

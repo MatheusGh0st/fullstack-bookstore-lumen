@@ -111,7 +111,7 @@ export default {
                 </div>
 
                 <div class="remove-cart">
-                    <div @click="removeBookFromCartById(carts[i].cart_id)" :key="carts[i].cart_id">Remove {{ carts[i].cart_id }}</div>
+                    <div @click="removeBookFromCartById(carts[i].cart_id)" :key="carts[i].cart_id">Remove</div>
                 </div>
             </li>
             <div class="cart-price">Total: {{ total_price.toFixed(2) }}</div>
