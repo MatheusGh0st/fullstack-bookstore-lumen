@@ -23,7 +23,21 @@ class BookController extends Controller
                 return response()->json(['data' => $book]);
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage]);
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function getBookBySearchTerm(Request $request, $searchTerm): JsonResponse
+    {
+        try {
+            $books = Book::query()->where('title', 'LIKE', "%$searchTerm%")->get();
+
+            if ($books) {
+                return response()->json(['data' => $books]);
+            }
+            return response()->json(['data' => $searchTerm]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 
