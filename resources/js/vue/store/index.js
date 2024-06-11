@@ -5,6 +5,7 @@ const defaultState = {
     accessToken: null,
     isLogged: null,
     userId: null,
+    searchQuery: null,
 }
 
 const store = createStore({
@@ -26,6 +27,9 @@ const store = createStore({
         },
         setUserId(state, userId) {
             state.userId = userId;
+        },
+        setSearchQuery(state, query) {
+            state.searchQuery = query;
         }
     },
     actions: {
@@ -50,6 +54,9 @@ const store = createStore({
         },
         resetUserState({ commit }) {
             commit('resetState');
+        },
+        setQuery({ commit }, { query }) {
+            commit('setSearchQuery', query);
         }
     },
 });

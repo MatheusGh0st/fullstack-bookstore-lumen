@@ -1,21 +1,42 @@
 <script>
-export default {
-    name: "Navbar",
-    computed: {
-        isLogged() {
-            return this.$store.state.isLogged;
+    import axios from "axios";
+    import { ref, watch } from "vue";
+    import { useStore } from "vuex";
+
+    export default {
+        name: "Navbar",
+        computed: {
+            isLogged() {
+                return this.$store.state.isLogged;
+            }
+        },
+        data() {
+            return {
+                imgFavBookUrl: '/images/bx_bx-book-heart.svg',
+                imgNotificationUrl: 'images/ic_round-notifications-none.svg',
+                imgAvatarUrl: '/images/avatar.svg',
+                iconBookStoreUrl: '/images/online-bookstore.jpeg',
+                imgCartUrl: '/images/cart-default.jpeg',
+            }
+        },
+        setup() {
+            const inputBooks = ref('');
+            const store = useStore();
+            const books = ref([]);
+
+            const setNavQuery = async (query) => {
+                await store.dispatch('setQuery', { query: query });
+            };
+
+            watch(inputBooks, (newVal, oldVal) => {
+                setNavQuery(newVal);
+            });
+
+            return {
+                inputBooks
+            }
         }
-    },
-    data() {
-        return {
-            imgFavBookUrl: '/images/bx_bx-book-heart.svg',
-            imgNotificationUrl: 'images/ic_round-notifications-none.svg',
-            imgAvatarUrl: '/images/avatar.svg',
-            iconBookStoreUrl: '/images/online-bookstore.jpeg',
-            imgCartUrl: '/images/cart-default.jpeg',
-        }
-    },
-}
+    }
 </script>
 
 <template>
@@ -25,7 +46,7 @@ export default {
             <li><router-link to="/home"><img class="img-bookstore" :src=iconBookStoreUrl />BookStore</router-link></li>
         </ul>
         <ul>
-            <li><input type="text" placeholder="Search..."></li>
+            <li><input v-model="inputBooks" type="text" placeholder="Search..."></li>
         </ul>
         <ul class="ul-register" v-show="!$store.state.isLogged">
             <li class="li-btn-register"><router-link to="/login">Login</router-link></li>

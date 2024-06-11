@@ -1,6 +1,6 @@
 <script>
     import axios from 'axios';
-    import { ref } from 'vue';
+    import { ref, watch, reactive } from 'vue';
     import { useStore } from 'vuex';
 
     export default {
@@ -22,8 +22,8 @@
             const getBooks = async () => {
                 try {
                     const response = await axios.get('http://localhost:5000/books', {
-                        headers: {
-                            'Authorization': 'Bearer ' + store.state.accessToken,
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken,
                         }
                     });
                     books.value = response.data;
@@ -64,6 +64,32 @@
                     throw error;
                 }
             };
+
+            const getBooksByQuery = async (query) => {
+                if (query.length == 0) {
+                    getBooks();
+                    return;
+                }
+
+                try {
+                    const response = await axios.get(`http://localhost:5000/books/query/${query}`, {
+                        headers: {
+                            'Authorization': 'Bearer ' + store.state.accessToken,
+                        }
+                    });
+                    books.value = response.data.data;
+                } catch (err) {
+                    console.error(err);
+                }
+            };
+
+            watch(
+                () => store.state.searchQuery,
+                (val, oldVal) => {
+                    books.value = [];
+                    getBooksByQuery(val);
+                }
+            );
 
             return {
                 books,
