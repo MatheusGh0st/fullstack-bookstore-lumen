@@ -9,6 +9,7 @@ import store from "./vue/store/index";
 import BookList from './vue/components/BookList.vue';
 import BookDetails from './vue/components/BookDetails.vue';
 import CartItem from './vue/components/CartItem.vue';
+import Me from './vue/components/Me.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -58,6 +59,13 @@ const router = createRouter({
             name: 'CartItem',
             components: {
                 main: CartItem
+            }
+        },
+        {
+            path: '/me',
+            name: 'Me',
+            components: {
+                main: Me
             }
         }
     ]

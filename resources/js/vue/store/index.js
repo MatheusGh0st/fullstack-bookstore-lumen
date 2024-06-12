@@ -6,6 +6,7 @@ const defaultState = {
     isLogged: null,
     userId: null,
     searchQuery: null,
+    email: null,
 }
 
 const store = createStore({
@@ -30,6 +31,9 @@ const store = createStore({
         },
         setSearchQuery(state, query) {
             state.searchQuery = query;
+        },
+        setEmail(state, email) {
+            state.email = email;
         }
     },
     actions: {
@@ -43,6 +47,7 @@ const store = createStore({
 
                 commit('setAccessToken', access_token);
                 commit('setUserId', user_id);
+                commit('setEmail', email);
                 const userIsLogged = (access_token !== null);
                 commit('setIsLogged', userIsLogged);
             } catch (error) {
