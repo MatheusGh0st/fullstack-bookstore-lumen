@@ -79,4 +79,10 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/payment', 'PaymentController@store');
     $router->put('/payment/{id}', 'PaymentController@update');
     $router->delete('/payment/{id}', 'PaymentController@destroy');
+
+    $router->get('/favorites', 'FavoritesController@index');
+    $router->get('/favorites/{id}', 'FavoritesController@getAllFavoritesByUser');
+    $router->post('/favorites', 'FavoritesController@store');
+    $router->put('/favorites/{id}', 'FavoritesController@update');
+    $router->delete('/favorites/{id}', 'FavoritesController@destroy');
 });
