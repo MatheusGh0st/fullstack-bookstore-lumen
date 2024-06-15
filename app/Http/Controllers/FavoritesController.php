@@ -11,13 +11,13 @@ class FavoritesController extends Controller
 {
     public function index()
     {
-        return Favorite::all();
+        return Favorites::all();
     }
 
-    public function getAllFavoritesByUser(Request $request, $id): Json Response
+    public function getAllFavoritesByUser(Request $request, $id): JsonResponse
     {
         try {
-            $favorites = Favorites::query()->where('user_id'. '=', $id)->get();
+            $favorites = Favorites::query()->where('user_id', '=', $id)->get();
 
             if (!$favorites) {
                 return response()->json(['message' => 'Not found favorites associate with this userId']);
@@ -29,12 +29,12 @@ class FavoritesController extends Controller
         }
     }
 
-    public function store(Request request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         try {
             $field = $request->input();
 
-            $favorite = new Favorite();
+            $favorite = new Favorites();
             $favorite->fill([
                 'user_id' => $field['user_id'],
                 'book_id' => $field['book_id'],
@@ -57,9 +57,8 @@ class FavoritesController extends Controller
         try {
             $field = $request->input();
 
-            $favorite = Favorite::query()->findOrFail($id);
+            $favorite = Favorites::query()->findOrFail($id);
             $favorite->update([
-                'user_id' => $field['user_id'],
                 'book_id' => $field['book_id'],
             ]);
 
@@ -80,15 +79,15 @@ class FavoritesController extends Controller
         try {
             $field = $request->input();
 
-            $favorite = Favorite::query()->findOrFail($id);
+            $favorite = Favorites::query()->findOrFail($id);
 
-            if ($language->delete())
+            if ($favorite->delete())
             {
                 return response()->json(['message' => 'Favorite deleted successfully']);
             }
 
             return response()->json(['error' => 'Favorite not deleted']);
-        } catch () {
+        } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
     }

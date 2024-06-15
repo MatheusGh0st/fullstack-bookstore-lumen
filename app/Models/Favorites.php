@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\BelongsTo;
 class Favorites extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'favorite_id';
+    protected $primaryKey = 'favorites_id';
     protected $fillable = [
         'user_id', 'book_id'
     ];
