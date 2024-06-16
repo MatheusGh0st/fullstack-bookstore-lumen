@@ -8,6 +8,7 @@ export default {
         return {
             imageUrl: 'https://www.boldstrokesbooks.com/assets/bsb/images/book-default-cover.jpg',
             imgCartUrl: '/images/cart-default.jpeg',
+            imgFavBookUrl: '/images/bx_bx-book-heart.svg',
             currentPage: this.$route.name,
             parameters: this.$route.params.id,
         }
@@ -64,12 +65,29 @@ export default {
             }
         };
 
+        const postBookToFavorite = async () => {
+            try {
+                const response = await axios.post(`http://localhost:5000/favorites`,
+                {
+                    user_id: store.state.userId,
+                    book_id: book.value.book_id,
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken
+                    },
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         return {
             book,
             author,
             getBookById,
             getAuthorById,
             postBookToCart,
+            postBookToFavorite,
         }
     },
     computed: {
@@ -105,6 +123,10 @@ export default {
             </div>
         </div>
         <div class="purchase-last-step">
+            <div class="book-favorite" @click=postBookToFavorite>
+                <img class="img-fav" :src=imgFavBookUrl width=35 height=35 />
+                <span class="span-fav">Add to favorite</span>
+            </div>
             <div class="book-status">Status: {{ book.status }}</div>
             <div class="book-stock">In stock: {{ book.stock }}</div>
             <div class="book-price">Price: {{ book.price }}</div>
@@ -132,6 +154,25 @@ hr {
     color: #F38851;
     height: 100vh;
     background-color: #242121;
+}
+
+.book-favorite {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+
+.book-favorite:nth-child(2) {
+  display: block;
+  flex-grow: 1;
+}
+
+.book-favorite:hover {
+    cursor: pointer;
 }
 
 .book-price {

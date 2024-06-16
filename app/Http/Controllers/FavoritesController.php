@@ -40,9 +40,16 @@ class FavoritesController extends Controller
                 'book_id' => $field['book_id'],
             ]);
 
-            if ($favorite->save())
-            {
-                return response()->json(['message' => 'Favorite add successfully']);
+            // Check if already exist the book in favorite table
+            $favoriteAlreadyExist = Favorites::query()
+                ->where('user_id', '=', $field['user_id'])
+                ->where('book_id', '=', $field['book_id'])->get();
+
+            if ($favoriteAlreadyExist->isEmpty()) {
+                if ($favorite->save())
+                {
+                    return response()->json(['message' => 'Favorite add successfully']);
+                }
             }
 
             return response()->json(['error' => 'error during add favorite']);
