@@ -10,6 +10,7 @@ import BookList from './vue/components/BookList.vue';
 import BookDetails from './vue/components/BookDetails.vue';
 import CartItem from './vue/components/CartItem.vue';
 import Me from './vue/components/Me.vue';
+import Favorite from './vue/components/Favorite.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -67,7 +68,14 @@ const router = createRouter({
             components: {
                 main: Me
             }
-        }
+        },
+        {
+            path: '/favorites',
+            name: 'Favorites',
+            components: {
+                main: Favorite
+            }
+        },
     ]
 });
 
