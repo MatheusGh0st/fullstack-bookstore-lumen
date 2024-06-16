@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Author extends Model
 {
     use HasFactory;
-    protected $primaryKey = "authors_book_id";
+    protected $primaryKey = "author_table_id";
 
     protected $fillable = [
         'book_id_table', 'authors_book_id', 'author_name', 'description', 'photo', 'date_of_birth'
