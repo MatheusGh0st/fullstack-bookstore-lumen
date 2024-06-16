@@ -115,10 +115,10 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     align-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #242121;
 }
 
@@ -126,6 +126,7 @@
     font-weight: bold;
     font-size: 40px;
     padding-top: 60px;
+    padding-bottom: 30px;
 }
 
 .remove-favorite:hover {

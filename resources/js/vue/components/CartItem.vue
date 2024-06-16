@@ -94,6 +94,7 @@ export default {
 
 <template>
     <div class="cart-item-container">
+        <span class="span-cart">Cart</span>
         <div class="cart-container">
             <li class="book-product-container" v-for="(book, i) in books">
                 <div class=book-img> <img :src=imageUrl width=60 height=80 /> </div>
@@ -127,8 +128,15 @@ export default {
     justify-content: center;
     align-items: center;
     align-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #242121;
+}
+
+.span-cart {
+    font-weight: bold;
+    font-size: 40px;
+    padding-top: 60px;
+    padding-bottom: 30px;
 }
 
 .remove-cart:hover {
