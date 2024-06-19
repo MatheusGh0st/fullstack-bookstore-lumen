@@ -7,6 +7,7 @@ const defaultState = {
     userId: null,
     searchQuery: null,
     email: null,
+    linkPage: null,
 }
 
 const store = createStore({
@@ -34,6 +35,9 @@ const store = createStore({
         },
         setEmail(state, email) {
             state.email = email;
+        },
+        setLinkPage(state, page) {
+            state.linkPage = page;
         }
     },
     actions: {
@@ -62,6 +66,9 @@ const store = createStore({
         },
         setQuery({ commit }, { query }) {
             commit('setSearchQuery', query);
+        },
+        setLink({ commit }, { page }) {
+            commit('setLinkPage', page);
         }
     },
 });

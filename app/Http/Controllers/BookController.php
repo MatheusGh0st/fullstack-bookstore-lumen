@@ -11,7 +11,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        return Book::all();
+        return Book::paginate(15);
     }
 
     public function getBookById(Request $request, $id): JsonResponse
@@ -52,7 +52,7 @@ class BookController extends Controller
                 'books_language_foreign' => $fields['books_language_foreign'],
                 'publication_date' => $fields['publication_date'],
                 'author_id' => $fields['author_id'],
-                'price' => $fields['price'],
+    'price' => $fields['price'],
                 'image' => $fields['image'],
                 'edition' => $fields['edition'],
                 'status' => $fields['status'],

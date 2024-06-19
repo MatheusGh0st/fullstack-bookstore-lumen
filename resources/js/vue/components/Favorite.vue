@@ -115,7 +115,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     align-content: center;
     min-height: 100vh;
@@ -126,7 +126,6 @@
     font-weight: bold;
     font-size: 40px;
     padding-top: 60px;
-    padding-bottom: 30px;
 }
 
 .remove-favorite:hover {

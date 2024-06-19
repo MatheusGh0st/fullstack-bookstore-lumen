@@ -1,6 +1,6 @@
 <script>
     import axios from 'axios';
-    import { ref, watch, reactive } from 'vue';
+    import { ref, watch, reactive, inject, provide } from 'vue';
     import { useStore } from 'vuex';
 
     export default {
@@ -18,15 +18,19 @@
         setup() {
             const store = useStore();
             const books = ref([]);
+            const paginationLinks = inject('paginationLinks');
+            const setPaginationLinks = inject('setPaginationLinks');
 
-            const getBooks = async () => {
+            const getBooks = async (page = 1) => {
+                console.log(`AA: ${page}`);
                 try {
-                    const response = await axios.get('http://localhost:5000/books', {
+                    const response = await axios.get(`http://localhost:5000/books?page=${page}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                         }
                     });
-                    books.value = response.data;
+                    books.value = response.data.data;
+                    setPaginationLinks(response.data.links);
                 } catch (err) {
                     console.error(err);
                 }
@@ -90,6 +94,14 @@
                     getBooksByQuery(val);
                 }
             );
+
+            watch(
+                () => store.state.linkPage,
+                (val, oldVal) => {
+                    books.value = [];
+                    getBooks(val);
+                }
+            )
 
             return {
                 books,

@@ -152,7 +152,7 @@ hr {
     align-items: center;
     align-content: center;
     color: #F38851;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #242121;
 }
 

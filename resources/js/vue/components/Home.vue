@@ -1,5 +1,7 @@
 <script>
 import BookList from "./BookList.vue";
+import { ref, provide, inject } from "vue";
+import { useStore } from "vuex";
 
 export default {
     name: "Home",
@@ -10,6 +12,28 @@ export default {
                 'Detective', 'Mystery', 'Fantasy', 'Historical Fiction', 'Horror', 'Literary Fiction',
                 'Romance', 'Science Fiction', 'Suspense', 'Thrillers', 'Fiction'],
             imgBooks: '/images/books-slider.svg',
+        };
+    },
+    setup() {
+        const store = useStore();
+        const paginationLinks = ref({});
+        const setPaginationLinks = (links) => {
+            paginationLinks.value = links;
+        };
+
+        provide('paginationLinks', paginationLinks);
+        provide('setPaginationLinks', setPaginationLinks);
+
+        const setLinkPage = async (page) => {
+            await store.dispatch('setLink', { page: page });
+        };
+
+        const regex = /\?page=(\d+)/;
+
+        return {
+            paginationLinks,
+            setLinkPage,
+            regex
         };
     }
 }
@@ -25,6 +49,11 @@ export default {
         <div class="content-container">
             <img class="book-slider" :src=imgBooks width="1250" />
             <BookList></BookList>
+            <div class="paginate-container">
+                <ul class="paginate-list" v-for="paginationLink in paginationLinks">
+                    <li @click=setLinkPage(paginationLink.url?.match(regex)[1]) v-if=parseInt(paginationLink.url?.match(regex)[1])>{{ paginationLink.url?.match(regex)[1] }}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -33,6 +62,14 @@ export default {
 * {
     color: #FFFFFF;
     font-family: 'Ubuntu';
+}
+
+li {
+    list-style-type: none;
+}
+
+li:hover {
+    cursor: pointer;
 }
 
 li > a {
@@ -47,6 +84,16 @@ li > a {
     align-items: stretch;
     align-content: center;
     background-color: #242121;
+    min-height: 100vh;
+}
+
+.paginate-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .book-slider {
@@ -77,6 +124,7 @@ li > a {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    min-height: 100vh;
     align-content: center;
 }
 </style>
