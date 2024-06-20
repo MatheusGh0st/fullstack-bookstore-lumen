@@ -11,7 +11,6 @@ export default {
             try {
                 await this.$store.dispatch('loginUser', { email: this.email, password: this.password });
 
-                console.log(!this.$store.state.accessToken);
                 if (!this.$store.state.accessToken) {
                     this.$router.push('/Login');
                 }

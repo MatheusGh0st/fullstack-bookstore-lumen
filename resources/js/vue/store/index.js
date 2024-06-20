@@ -22,6 +22,7 @@ const store = createStore({
             state.isLogged = isLogged;
         },
         logout(state) {
+            state.isLogged = false;
             state.accessToken = null;
         },
         resetState(state) {

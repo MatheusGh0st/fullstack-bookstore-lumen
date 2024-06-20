@@ -22,7 +22,7 @@
         setup() {
             const inputBooks = ref('');
             const store = useStore();
-        const books = ref([]);
+            const books = ref([]);
 
             const setNavQuery = async (query) => {
                 await store.dispatch('setQuery', { query: query });
@@ -33,7 +33,7 @@
             });
 
             return {
-                inputBooks
+                inputBooks,
             }
         }
     }

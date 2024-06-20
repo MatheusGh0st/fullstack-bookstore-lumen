@@ -22,7 +22,6 @@
             const setPaginationLinks = inject('setPaginationLinks');
 
             const getBooks = async (page = 1) => {
-                console.log(`AA: ${page}`);
                 try {
                     const response = await axios.get(`http://localhost:5000/books?page=${page}`, {
                     headers: {

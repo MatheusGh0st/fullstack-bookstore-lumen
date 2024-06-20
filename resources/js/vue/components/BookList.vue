@@ -11,10 +11,6 @@
                 parameters: this.$route.params.genre,
             }
         },
-        setup() {
-            const testFodase = inject('testFodase');
-            console.log(testFodase);
-        }
     }
 </script>
 

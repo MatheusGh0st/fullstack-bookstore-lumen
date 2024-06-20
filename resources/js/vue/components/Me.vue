@@ -1,10 +1,38 @@
 <script>
+    import axios from "axios";
+    import { useStore } from "vuex";
+    import { useRouter } from 'vue-router';
+
 export default {
     data() {
         return {
             email: this.$store.state.email,
         };
     },
+    setup() {
+        const store = useStore();
+        const router = useRouter();
+
+        const logout = async () => {
+            try {
+                const response = await axios.post(`http://localhost:5000/logout`, {}, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken,
+                    }
+                });
+
+                await store.dispatch('logoutUser');
+
+                router.push({ path: '/Login' });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        return {
+            logout,
+        }
+    }
 
 }
 
@@ -14,14 +42,17 @@ export default {
     <section>
         <div class="me-container">
             <span class="span-me">Account</span>
-            <form class="form-me-container">
+            <form class="form-me-container" @submit.prevent="logout">
                 <div class="label-container">
                     <input class="input-label" v-model="email" name="email" type="text" disabled />
                 </div>
                 <div class="label-container">
                     <input class="input-label" name="password" type="password" />
                 </div>
-                <button type="submit">Save changes</button>
+                <div class="btn-container">
+                    <button type="submit">Save changes</button>
+                    <button type="submit">Logout</button>
+                </div>
             </form>
         </div>
     </section>
@@ -38,6 +69,13 @@ export default {
     font-weight: bold;
     font-size: 40px;
     padding-top: 60px;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 button {
