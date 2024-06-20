@@ -6,6 +6,9 @@ import Footer from "./Footer.vue";
 export default {
     name: 'App',
     components: {Navbar, Footer},
+    created() {
+         this.$router.push('/Login');
+    }
 };
 </script>
 

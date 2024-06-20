@@ -51,7 +51,7 @@ export default {
             <BookList></BookList>
             <div class="paginate-container">
                 <ul class="paginate-list" v-for="paginationLink in paginationLinks">
-                    <li @click=setLinkPage(paginationLink.url?.match(regex)[1]) v-if=parseInt(paginationLink.url?.match(regex)[1])>{{ paginationLink.url?.match(regex)[1] }}</li>
+                    <li @click=setLinkPage(parseInt(paginationLink.label)) v-if=parseInt(paginationLink.label)>{{ parseInt(paginationLink.label) }}</li>
                 </ul>
             </div>
         </div>
