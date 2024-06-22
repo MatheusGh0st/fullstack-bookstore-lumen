@@ -85,4 +85,10 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->post('/favorites', 'FavoritesController@store');
     $router->put('/favorites/{id}', 'FavoritesController@update');
     $router->delete('/favorites/{id}', 'FavoritesController@destroy');
+
+    $router->get('/notifications', 'NotificationController@index');
+    $router->get('/notifications/{id}', 'NotificationController@getAllNotificationsByUser');
+    $router->post('/notification', 'NotificationController@store');
+    $router->put('/notification/{id}', 'NotificationController@update');
+    $router->delete('/notification/{id}', 'NotificationController@destroy');
 });

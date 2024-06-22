@@ -13,9 +13,9 @@ export default {
 
                 if (!this.$store.state.accessToken) {
                     this.$router.push('/Login');
+                } else {
+                    this.$router.push('/Home');
                 }
-
-                this.$router.push('/Home');
             } catch (err)
             {
                 console.error(err);

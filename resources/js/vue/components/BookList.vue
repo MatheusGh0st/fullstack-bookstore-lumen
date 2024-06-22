@@ -16,7 +16,7 @@
 
 <template>
     <div class="book-container">
-        <BookListItem :method="parentMethod" :page="currentPage" :paramsPage="parameters"></BookListItem>
+        <BookListItem :page="currentPage" :paramsPage="parameters"></BookListItem>
     </div>
 </template>
 

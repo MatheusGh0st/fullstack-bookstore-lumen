@@ -11,6 +11,7 @@ import BookDetails from './vue/components/BookDetails.vue';
 import CartItem from './vue/components/CartItem.vue';
 import Me from './vue/components/Me.vue';
 import Favorite from './vue/components/Favorite.vue';
+import Notification from "./vue/components/Notification.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -74,6 +75,13 @@ const router = createRouter({
             name: 'Favorites',
             components: {
                 main: Favorite
+            }
+        },
+        {
+            path: '/notifications',
+            name: 'Notifications',
+            components: {
+                main: Notification
             }
         },
     ]
