@@ -10,7 +10,7 @@ class Review extends Model
 {
     use HasFactory;
     protected $primaryKey = 'review_id';
-    protected $fillable = ['customer_id', 'book_id', 'review', 'date'];
+    protected $fillable = ['customer_id', 'review_book_id', 'review'];
 
     public function user(): BelongsTo
     {
@@ -19,6 +19,6 @@ class Review extends Model
 
     public function book()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Book::class, 'review_book_id');
     }
 }

@@ -86,6 +86,21 @@ class AuthController extends Controller
         }
     }
 
+    public function getFirstNameById(Request $request, $id): JsonResponse
+    {
+        try {
+            $username = User::query()->where('id', '=', $id)->pluck('firstName');
+
+            if (!$username) {
+                return response()->json(['message' => 'UserName not found']);
+            }
+
+            return response()->json(['message' => 'Username find successfully', 'data' => $username]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Login user.
      *

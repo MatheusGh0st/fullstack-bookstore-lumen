@@ -28,6 +28,7 @@ $router->post('/refresh', 'AuthController@refresh');
 $router->get('/test/{id}', 'AuthController@test');
 
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->get('/user/{id}', 'AuthController@getFirstNameById');
     $router->post('/logout', 'AuthController@logout');
 
     $router->get('/cities', 'CityController@index');
@@ -55,6 +56,7 @@ $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->delete('/author/{id}', 'AuthorController@destroy');
 
     $router->get('/reviews', 'ReviewController@index');
+    $router->get('/reviews/{id}', 'ReviewController@getReviewsByBookId');
     $router->post('/review', 'ReviewController@store');
     $router->put('/review/{id}', 'ReviewController@update');
     $router->delete('/review/{id}', 'ReviewController@destroy');

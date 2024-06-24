@@ -18,6 +18,9 @@ export default {
         const store = useStore();
         const book = ref({});
         const author = ref({});
+        const reviews = ref([]);
+        const reviewUser = ref('');
+        const usersNamesReviews = ref({});
 
         const getBookById = async (id) => {
             try {
@@ -41,6 +44,19 @@ export default {
                 });
                 author.value = response.data.data;
             } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const getUserNameById = async (id) => {
+            try {
+                const response = await axios.get(`http://localhost:5000/user/${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken,
+                    }
+                });
+                return response.data.data;
+            } catch(error) {
                 console.error(error);
             }
         }
@@ -81,13 +97,50 @@ export default {
             }
         }
 
+        const getReviewsByBookId = async (bookId) => {
+            try {
+                const response = await axios.get(`http://localhost:5000/reviews/${bookId}`,
+                    {
+                        headers: {
+                            'Authorization': 'Bearer ' + store.state.accessToken
+                        },
+                    });
+                reviews.value = response.data.data;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const postReviewByBookId = async (bookId) => {
+            try {
+                const response = await axios.post(`http://localhost:5000/review`, {
+                    customer_id: store.state.userId,
+                    review_book_id: bookId,
+                    review: reviewUser.value,
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state.accessToken
+                    },
+                });
+                getReviewsByBookId(bookId);
+            } catch (error) {
+               console.error(error);
+            }
+        }
+
         return {
             book,
             author,
+            reviews,
+            reviewUser,
+            usersNamesReviews,
             getBookById,
             getAuthorById,
+            getUserNameById,
             postBookToCart,
             postBookToFavorite,
+            getReviewsByBookId,
+            postReviewByBookId,
         }
     },
     computed: {
@@ -99,38 +152,70 @@ export default {
 
     async mounted() {
         const bookDetails = await this.fetchedBook;
-        this.getAuthorById(bookDetails.author_id);
+        await this.getAuthorById(bookDetails.author_id);
+        await this.getReviewsByBookId(bookDetails.book_id);
+        this.usersNamesReviews = await Promise.all(this.reviews.map(review => this.getUserNameById(review.customer_id)));
     }
 }
 </script>
 
 <template>
-    <div class="book-details-container">
-        <div class="book-image">
-            <img class="img-book" :src=imageUrl width="300" height="405" />
+    <div class="book-details-wrapper">
+        <div class="book-details-container">
+            <div class="book-image">
+                <img class="img-book" :src=imageUrl width="300" height="405" />
+            </div>
+            <div class="text-information" ref="book.value">
+                <div class="information-up">
+                    <div class="book-title">Title: {{ book.title }}</div>
+                    <div class="book-date">Publication Date: {{ book.publication_date }}</div>
+                    <div class="book-author">
+                        <span v-if="author && author.author_name">Author: {{ author.author_name }}</span>
+                        <span v-else>Author: Unknown</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="information-down">
+                    <div class="author-description">
+                        <span v-if="author && author.description">Description: {{ author.description }}</span>
+                        <span v-else>Description: None</span>
+                    </div>
+                    <div class="book-genre">Genre: {{ book.genre }}</div>
+                    <div class="book-edition">Edition: {{ book.edition }}</div>
+                </div>
+            </div>
+            <div class="purchase-last-step">
+                <div class="book-favorite" @click=postBookToFavorite>
+                    <img class="img-fav" :src=imgFavBookUrl width=35 height=35 />
+                    <span class="span-fav">Add to favorite</span>
+                </div>
+                <div class="book-status">Status: {{ book.status }}</div>
+                <div class="book-stock">In stock: {{ book.stock }}</div>
+                <div class="book-price">Price: {{ book.price }}</div>
+                <div class="book-cart"><router-link to="/cart" @click=postBookToCart>Add to Cart</router-link></div>
+            </div>
         </div>
-        <div class="text-information" ref="book.value">
-            <div class="information-up">
-                <div class="book-title">Title: {{ book.title }}</div>
-                <div class="book-date">Publication Date: {{ book.publication_date }}</div>
-                <div class="book-author">Author: {{ author.author_name }}</div>
+        <div class="reviews-container">
+            <span class="span-review">Reviews</span>
+            <div class="review-item-container">
+                <li class="review-container" v-for="(review, i) in reviews" :key="i">
+                    <span class="review-by">Review By User&nbsp;</span>
+                    <span class="user-name" v-if="usersNamesReviews[i] && usersNamesReviews[i][0]">
+                         {{ usersNamesReviews[i][0] }}</span>
+                    <span class="user-name" v-else>
+                        Unknown
+                    </span>
+                    <span class="review-text">: {{ review.review }}</span>
+                </li>
             </div>
-            <hr>
-            <div class="information-down">
-                <div class="author-description">Description: {{ author.description }}</div>
-                <div class="book-genre">Genre: {{ book.genre }}</div>
-                <div class="book-edition">Edition: {{ book.edition }}</div>
+            <div class="review-user">
+                <form class="form-review-user" @submit.prevent="postReviewByBookId(book.book_id)">
+                    <p><label class="label-review-user">Review of User</label></p>
+                    <textarea v-model="reviewUser" class="textarea-review" rows="4" cols="50"></textarea>
+                    <br>
+                    <input type="submit">
+                </form>
             </div>
-        </div>
-        <div class="purchase-last-step">
-            <div class="book-favorite" @click=postBookToFavorite>
-                <img class="img-fav" :src=imgFavBookUrl width=35 height=35 />
-                <span class="span-fav">Add to favorite</span>
-            </div>
-            <div class="book-status">Status: {{ book.status }}</div>
-            <div class="book-stock">In stock: {{ book.stock }}</div>
-            <div class="book-price">Price: {{ book.price }}</div>
-            <div class="book-cart"><router-link to="/cart" @click=postBookToCart>Add to Cart</router-link></div>
         </div>
     </div>
 </template>
@@ -140,8 +225,62 @@ hr {
     width: 600px;
 }
 
+input {
+    padding: 5px 10px;
+    background-color: #ac0c0c;
+    border: 1px solid black;
+}
+
+input:hover {
+    background-color: #ec513a;
+    cursor: pointer;
+}
+
+.label-review-user {
+    font-weight: bold;
+    font-size: 35px;
+    padding-top: 60px;
+    padding-bottom: 30px;
+}
+
+.user-name {
+    color: white;
+}
+
+.review-by {
+    color: black;
+}
+
 .img-book {
     border-radius: 5%;
+}
+
+.span-review {
+    font-weight: bold;
+    font-size: 35px;
+    padding-top: 60px;
+    padding-bottom: 30px;
+}
+
+.book-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #242121;
+}
+
+.review-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    padding: 5px 15px;
+    color: #F38851;
+}
+
+.reviews-container {
+    padding: 0px 120px 0px 120px;
+    background-color: #242121;
 }
 
 .book-details-container {
