@@ -16,7 +16,7 @@ This project was created to work with lumen and to develop skills in Lumen, PHP,
  - [X] Vue components models
  - [X] Css on all components
  - [X] Test for all components and controllers
- - []  Admin role
+ - [ ] Admin role
 
 ## How to install project dependencies
 
