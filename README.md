@@ -9,9 +9,31 @@ This project was created to work with lumen and to develop skills in Lumen, PHP,
 
 ## Todo
 
- - [x] Authentication Backend/Frontend.
+ - [X] Authentication Backend/Frontend.
  - [X] Models (User, Book, Cart, Order, Payment, etc).
  - [X] Controller for all models.
- - [x] Relationship Entity between models.
- - [ ] Vue components models
- - [ ] Css on all components
+ - [X] Relationship Entity between models.
+ - [X] Vue components models
+ - [X] Css on all components
+ - [X] Test for all components and controllers
+ - []  Admin role
+
+## How to install project dependencies
+
+For install front-end dependencies
+
+```
+npm install
+```
+
+For install authentication dependencies (passport)
+
+```
+php artisan passport:install
+```
+
+For seed the database with fake data
+
+```
+php artisan db:seed
+```
