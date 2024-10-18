@@ -16,7 +16,9 @@ This project was created to work with lumen and to develop skills in Lumen, PHP,
  - [X] Vue components models
  - [X] Css on all components
  - [X] Test for all components and controllers
- - [ ] Admin role
+ - [X] Admin role
+
+![HomePage BookStore](./public/images/HomePage-BookStore.png)
 
 ## How to install project dependencies
 
