@@ -87,6 +87,21 @@ const router = createRouter({
     ]
 });
 
+router.beforeEach((to, from, next) => {
+  const loggedIn = store.state.isLogged;
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    next("/Login");
+  } else if (
+    to.matched.some((record) => record.meta.requiresVisitor) &&
+    loggedIn
+  ) {
+    next("/");
+  } else {
+    next();
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const app = createApp({});
     app.component('App', App);

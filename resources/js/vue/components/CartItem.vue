@@ -15,6 +15,7 @@ export default {
         const carts = ref([]);
         const books = ref({});
         const total_price = ref(0.0);
+        const APP_HOST = process.env.APP_HOST;
 
         const calculateTotal = () => {
             total_price.value = 0;
@@ -26,7 +27,7 @@ export default {
         const getUserCarts = async () => {
             const userId = store.state.userId;
             try {
-                const response = await axios.get(`http://localhost:5000/cart/${userId}`, {
+                const response = await axios.get(`${APP_HOST}/cart/${userId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
@@ -39,7 +40,7 @@ export default {
 
         const getBookById = async (id) => {
             try {
-                const response = await axios.get(`http://localhost:5000/book/${id}`, {
+                const response = await axios.get(`${APP_HOST}/book/${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken
                     }
@@ -52,7 +53,7 @@ export default {
 
         const removeBookFromCartById = async (id) => {
             try {
-                const response = await axios.delete(`http://localhost:5000/cart/${id}`, {
+                const response = await axios.delete(`${APP_HOST}/cart/${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken
                     }

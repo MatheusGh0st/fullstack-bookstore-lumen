@@ -14,11 +14,12 @@
             const store = useStore();
             const favorites = ref([]);
             const books = ref({});
+            const APP_HOST = process.env.APP_HOST;
 
             const getUserFavorites = async () => {
                 const userId = store.state.userId;
                 try {
-                    const response = await axios.get(`http://localhost:5000/favorites/${userId}`,
+                    const response = await axios.get(`${APP_HOST}/favorites/${userId}`,
                         { headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
@@ -31,7 +32,7 @@
 
             const getBookById = async (id) => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/book/${id}`, {
+                    const response = await axios.get(`${APP_HOST}/book/${id}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken
                         }
@@ -44,7 +45,7 @@
 
             const removeBookFromFavoriteById = async (id) => {
                 try {
-                    const response = await axios.delete(`http://localhost:5000/favorites/${id}`, {
+                    const response = await axios.delete(`${APP_HOST}/favorites/${id}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken
                         }

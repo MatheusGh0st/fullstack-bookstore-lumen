@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 mix.js('resources/js/app.js', 'dist').vue().sourceMaps()
     .webpackConfig({
@@ -29,4 +30,7 @@ mix.js('resources/js/app.js', 'dist').vue().sourceMaps()
                 '@': path.join(__dirname, 'public/images'),
             },
         },
+        plugins: [
+            new Dotenv()
+        ]
     });

@@ -8,11 +8,12 @@
         setup() {
             const store = useStore();
             const notifications = ref([]);
+            const APP_HOST = process.env.APP_HOST;
 
             const getUserNotifications = async () => {
                 const userId = store.state.userId;
                 try {
-                    const response = await axios.get(`http://localhost:5000/notifications/${userId}`, {
+                    const response = await axios.get(`${APP_HOST}/notifications/${userId}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken,
                         }
@@ -25,7 +26,7 @@
 
             const removeNotificationById = async (id) => {
                 try {
-                    const response = await axios.delete(`http://localhost:5000/notification/${id}`, {
+                    const response = await axios.delete(`${APP_HOST}/notification/${id}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken
                         }

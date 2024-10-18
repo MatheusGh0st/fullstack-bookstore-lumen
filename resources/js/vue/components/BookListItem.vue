@@ -20,10 +20,11 @@
             const books = ref([]);
             const paginationLinks = inject('paginationLinks');
             const setPaginationLinks = inject('setPaginationLinks');
+            const APP_HOST = process.env.APP_HOST;
 
             const getBooks = async (page = 1) => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/books?page=${page}`, {
+                    const response = await axios.get(`${APP_HOST}/books?page=${page}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                         }
@@ -37,7 +38,7 @@
 
             const getBooksByGenre = async (genre) => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/books/${genre}`, {
+                    const response = await axios.get(`${APP_HOST}/books/${genre}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken,
                         }
@@ -50,7 +51,7 @@
 
             const postBookToCart = async (bookId) => {
                 try {
-                    const response = await axios.post(`http://localhost:5000/cart`,
+                    const response = await axios.post(`${APP_HOST}/cart`,
                         {
                             user_id: store.state.userId,
                             book_id: bookId,
@@ -75,7 +76,7 @@
                 }
 
                 try {
-                    const response = await axios.get(`http://localhost:5000/books/query/${query}`, {
+                    const response = await axios.get(`${APP_HOST}/books/query/${query}`, {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken,
                         }

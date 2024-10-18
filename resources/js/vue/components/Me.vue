@@ -15,7 +15,8 @@ export default {
 
         const logout = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/logout`, {}, {
+                const APP_HOST = process.env.APP_HOST;
+                const response = await axios.post(`${APP_HOST}/logout`, {}, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }

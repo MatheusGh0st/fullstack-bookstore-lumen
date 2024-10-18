@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from 'axios';
+import { useStorage } from "@vueuse/core";
 
 const defaultState = {
     accessToken: null,
@@ -10,41 +11,85 @@ const defaultState = {
     linkPage: null,
 }
 
+const accessToken = useStorage('access-token', null);
+const isLogged = useStorage('is-logged', null);
+const userId = useStorage('user-id', null);
+const searchQuery = useStorage('search-query', null);
+const email = useStorage('email', null);
+const linkPage = useStorage('link-page', null);
+
 const store = createStore({
     state() {
-        return { ...defaultState };
+        return {
+            accessToken: accessToken.value,
+            isLogged: !!isLogged.value,
+            userId: JSON.parse(userId.value),
+            searchQuery: JSON.parse(searchQuery.value),
+            email: email.value,
+            linkPage: JSON.parse(linkPage.value)
+        };
     },
     mutations: {
-        setAccessToken(state, accessToken) {
-            state.accessToken = accessToken;
+        setAccessToken(state, token) {
+            state.accessToken = token;
+            accessToken.value = token;
         },
-        setIsLogged(state, isLogged) {
-            state.isLogged = isLogged;
+        setIsLogged(state, isUserLogged) {
+            state.isLogged = isUserLogged;
+            isLogged.value = isUserLogged
         },
         logout(state) {
-            state.isLogged = false;
             state.accessToken = null;
+            state.isLogged = null;
+            state.userId = null;
+            state.searchQuery = null;
+            state.email = null;
+            state.linkPage = null;
+
+            accessToken.value = null;
+            isLogged.value = null;
+            userId.value = null;
+            searchQuery.value = null;
+            email.value = null;
+            linkPage.value = null;
         },
         resetState(state) {
-            Object.assign(state, defaultState);
+            state.accessToken = null;
+            state.isLogged = null;
+            state.userId = null;
+            state.searchQuery = null;
+            state.email = null;
+            state.linkPage = null;
+
+            accessToken.value = null;
+            isLogged.value = null;
+            userId.value = null;
+            searchQuery.value = null;
+            email.value = null;
+            linkPage.value = null;
         },
-        setUserId(state, userId) {
-            state.userId = userId;
+        setUserId(state, id) {
+            state.userId = id;
+            userId.value = id;
         },
         setSearchQuery(state, query) {
             state.searchQuery = query;
+            searchQuery.value = query;
         },
-        setEmail(state, email) {
-            state.email = email;
+        setEmail(state, emailUser) {
+            state.email = emailUser;
+            email.value = emailUser;
         },
         setLinkPage(state, page) {
             state.linkPage = page;
+            linkPage.value = page;
         }
     },
     actions: {
         async loginUser({ commit }, { email, password }) {
             try {
-                const response = await axios.post('http://localhost:5000/login', {
+                const APP_HOST = process.env.APP_HOST;
+                const response = await axios.post(`${APP_HOST}/login`, {
                     email, password
                 });
                 const { access_token } = response.data.message;

@@ -56,7 +56,8 @@ export default {
     methods: {
         async storeRegister() {
             try {
-                const response = await axios.post("http://localhost:5000/register", {
+                const APP_HOST = process.env.APP_HOST;
+                const response = await axios.post(`${APP_HOST}/register`, {
                     firstName: this.firstName,
                     lastName: this.lastName,
                     user_address: this.user_address,

@@ -21,10 +21,11 @@ export default {
         const reviews = ref([]);
         const reviewUser = ref('');
         const usersNamesReviews = ref({});
+        const APP_HOST = process.env.APP_HOST;
 
         const getBookById = async (id) => {
             try {
-                const response = await axios.get(`http://localhost:5000/book/${id}`, {
+                const response = await axios.get(`${APP_HOST}/book/${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
@@ -37,7 +38,7 @@ export default {
 
         const getAuthorById = async (id) => {
             try {
-                const response = await axios.get(`http://localhost:5000/author/${id}`, {
+                const response = await axios.get(`${APP_HOST}/author/${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
@@ -50,7 +51,7 @@ export default {
 
         const getUserNameById = async (id) => {
             try {
-                const response = await axios.get(`http://localhost:5000/user/${id}`, {
+                const response = await axios.get(`${APP_HOST}/user/${id}`, {
                     headers: {
                         'Authorization': 'Bearer ' + store.state.accessToken,
                     }
@@ -63,7 +64,7 @@ export default {
 
         const postBookToCart = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/cart`,
+                const response = await axios.post(`${APP_HOST}/cart`,
                     {
                         user_id: store.state.userId,
                             book_id: book.value.book_id,
@@ -83,7 +84,7 @@ export default {
 
         const postBookToFavorite = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/favorites`,
+                const response = await axios.post(`${APP_HOST}/favorites`,
                 {
                     user_id: store.state.userId,
                     book_id: book.value.book_id,
@@ -99,7 +100,7 @@ export default {
 
         const getReviewsByBookId = async (bookId) => {
             try {
-                const response = await axios.get(`http://localhost:5000/reviews/${bookId}`,
+                const response = await axios.get(`${APP_HOST}/reviews/${bookId}`,
                     {
                         headers: {
                             'Authorization': 'Bearer ' + store.state.accessToken
@@ -113,7 +114,7 @@ export default {
 
         const postReviewByBookId = async (bookId) => {
             try {
-                const response = await axios.post(`http://localhost:5000/review`, {
+                const response = await axios.post(`${APP_HOST}/review`, {
                     customer_id: store.state.userId,
                     review_book_id: bookId,
                     review: reviewUser.value,
